@@ -1,0 +1,453 @@
+<!-- upload.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IMMb</title>
+    <style>
+
+        html {
+            height:100%;
+        }
+
+        body {
+            font-family: Gopher, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0F0F0F;
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        h1 {
+            padding-top: 15%;
+            text-align: center;
+            color: lightgrey;
+            font-size: 5em;
+            margin: 0;
+        }
+
+        img {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            position: absolute;
+            height: auto;
+            z-index: -100;
+            opacity: 50%;
+        }
+
+        #img1 {
+            top: 70px;
+            left: 70px;
+        }
+        #img2 {
+            top: 150px;
+            left: 1100px;
+        }
+        #img3 {
+            top: 400px;
+            left: 800px;
+        }
+        #img4 {
+            top: 500px;
+            left: 250px;
+        }
+        #img5 {
+            top: -100px;
+            left: 600px;
+        }
+
+        form {
+            padding: 0;
+            margin: 0;
+        }
+
+        a{
+            border-radius: 10%;
+            position: relative;
+            display: inline-block;
+            padding: 3px 6px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #7f9eb9;
+            transition: 0.5s;
+            overflow: hidden;
+            margin-left: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        a:hover{
+            transition: 0.5s;
+            background-color: #7f9eb9;
+            color: #050801;
+            box-shadow: 0 0 5px #7f9eb9,
+            0 0 10px #7f9eb9,
+            0 0 20px #7f9eb9,
+            0 0 30px #7f9eb9;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+        }
+        [disabled] {
+            opacity: .6;
+            cursor: default;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #buttons{
+            text-align: center;
+            margin-top:5%;
+        }
+
+        .login {
+            padding: 25px;
+        }
+
+        .auth{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+        }
+        .authLink {
+            padding:10px;
+            width: fit-content;
+        }
+
+        .hidden {
+            opacity:0;
+            cursor: default;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .cred {
+            align-items: center;
+            text-align: center;
+            transform-origin: -150px;
+        }
+
+        #signupCred {
+            z-index:-2;
+        }
+
+        label, input {
+            margin: 10px;
+        }
+
+        input {
+            font-size: 16px;
+            border: none;
+            background: none;
+            border-radius: 10%;
+            position: relative;
+            display: inline-block;
+            padding: 3px 6px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #7f9eb9;
+            transition: 0.5s;
+            overflow: hidden;
+            margin-left: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+             transition: 0.5s;
+             background-color: #7f9eb9;
+             color: #050801;
+             box-shadow: 0 0 5px #7f9eb9,
+             0 0 10px #7f9eb9,
+             0 0 20px #7f9eb9,
+             0 0 30px #7f9eb9;
+             -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+         }
+        input[type="text"], input[type="password"] {
+            border: solid 1px white;
+        }
+
+        .back {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes slide-out-bottom {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+        @keyframes slide-in-bottom {
+            0% {
+                -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slide-out-left {
+            0% {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateX(-100px);
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+        }
+        @keyframes slide-in-left {
+            0% {
+                -webkit-transform: translateX(-100px);
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+                opacity: 1;
+            }
+        } @keyframes slide-in-left-slow {
+            0% {
+                -webkit-transform: translateX(-100px);
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+        }
+        @keyframes slide-out-right {
+            0% {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateX(100px);
+                transform: translateX(100px);
+                opacity: 0;
+            }
+        }
+        @keyframes slide-in-right {
+            0% {
+                -webkit-transform: translateX(100px);
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slide-in-top {
+            0% {
+                -webkit-transform: translateY(-225px);
+                transform: translateY(-225px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: translateY(-150px);
+                transform: translateY(-150px);
+                opacity: 1;
+            }
+        }
+        @keyframes slide-out-top {
+            0% {
+                -webkit-transform: translateY(-150px);
+                transform: translateY(-150px);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(-225px);
+                transform: translateY(-225px);
+                opacity: 0;
+            }
+        }
+        @keyframes shake-horizontal {
+            0%,
+            100% {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+            }
+            10%,
+            30%,
+            50%,
+            70% {
+                -webkit-transform: translateX(-10px);
+                transform: translateX(-10px);
+            }
+            20%,
+            40%,
+            60% {
+                -webkit-transform: translateX(10px);
+                transform: translateX(10px);
+            }
+            80% {
+                -webkit-transform: translateX(8px);
+                transform: translateX(8px);
+            }
+            90% {
+                -webkit-transform: translateX(-8px);
+                transform: translateX(-8px);
+            }
+        }
+
+        .slide-out-bottom {
+            animation: slide-out-bottom 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+            cursor: default;
+            pointer-events: none;
+            user-select: none;
+        }
+        .slide-in-bottom {
+            animation: slide-in-bottom 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+            cursor: pointer;
+            pointer-events: auto;
+            user-select: auto;
+        }
+        .slide-out-left {
+            animation: slide-out-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            cursor: default;
+            pointer-events: none;
+            user-select: none;
+        }
+        .slide-in-left {
+            animation: slide-in-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            cursor: pointer;
+            pointer-events: auto;
+            user-select: auto;
+        }
+        .slide-in-left-slow {
+            animation: slide-in-left-slow 2s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            cursor: pointer;
+            pointer-events: auto;
+            user-select: auto;
+        }
+        .slide-out-right {
+            animation: slide-out-right 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            cursor: default;
+            pointer-events: none;
+            user-select: none;
+        }
+        .slide-in-right {
+            animation: slide-in-right 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            cursor: pointer;
+            pointer-events: auto;
+            user-select: auto;
+        }
+        .slide-in-top {
+            animation: slide-in-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        .slide-out-top {
+            animation: slide-out-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        .shake-horizontal {
+            animation: shake-horizontal 20s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite both;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+
+        let loginForm = `<form action="/login" method="post" id="loginCred">
+            <label><input type="text" placeholder="Email" id="email"></label>
+            <label><input type="password" placeholder="Password" id="password"></label>
+            <div class="back">
+            <a onclick="animateReturn()"> &lt;Go Back</a>
+            <label><input type="submit" value="Log in"></label>
+            </div>
+        </form>`;
+
+        let signupForm = `<form action="/signup" method="post" id="signupCred">
+            <label><input type="text" placeholder="Username" id="username"></label>
+            <label><input type="text" placeholder="Email" id="email"></label>
+            <label><input type="password" placeholder="Password" id="password"></label>
+            <div class="back">
+                <a onclick="animateReturn()"> &lt;Go Back</a>
+                <label><input type="submit" value="Sign up"></label>
+            </div>
+        </form>`;
+
+        $(window).on("load", () => {
+            setTimeout(() => {
+                $.each(["img1", "img2", "img3", "img4", "img5"], (index, value) => {
+                    $(`#${value}`).removeClass("slide-in-left-slow").addClass("shake-horizontal")
+                })
+            }, 2000)
+        })
+
+        function login() {
+            $("#template").empty().append(loginForm)
+            animate();
+        }
+
+        function signup() {
+            $("#template").empty().append(signupForm);
+            animate();
+        }
+
+        function animate() {
+            $("#google-auth").removeClass("slide-in-bottom").addClass("slide-out-bottom")
+            $("#facebook-auth").removeClass("slide-in-bottom").addClass("slide-out-bottom")
+            $("#login").removeClass("slide-in-left").addClass("slide-out-left")
+            $("#signup").removeClass("slide-in-right").addClass("slide-out-right")
+            $("#template").removeClass("slide-out-top").addClass("slide-in-top").removeClass("hidden")
+        }
+        function animateReturn() {
+            $("#google-auth").removeClass("slide-out-bottom").addClass("slide-in-bottom")
+            $("#facebook-auth").removeClass("slide-out-bottom").addClass("slide-in-bottom")
+            $("#login").removeClass("slide-out-left").addClass("slide-in-left")
+            $("#signup").removeClass("slide-out-right").addClass("slide-in-right")
+            $("#template").removeClass("slide-in-top").addClass("slide-out-top").addClass("hidden")
+        }
+
+    </script>
+</head>
+<body>
+<img src="/img/download.png" alt="" id="img1" class="slide-in-left-slow">
+<img src="img/download.png" alt="" id="img2" class="slide-in-left-slow">
+<img src="img/download.png" alt="" id="img3" class="slide-in-left-slow">
+<img src="img/download.png" alt="" id="img4" class="slide-in-left-slow">
+<img src="img/download.png" alt="" id="img5" class="slide-in-left-slow">
+<div class="container">
+    <h1>Welcome to IMMb</h1>
+    <div id="buttons">
+        <div class="login">
+                <a onclick="login()" id="login">Login</a>
+                <a onclick="signup()" id="signup">Signup</a>
+        </div>
+    <div class="auth">
+        <a href="/auth/google" class="authLink"  id="google-auth">Signup using Google</a>
+        <a href="/auth/facebook" class="authLink"  id="facebook-auth">Signup using Facebook</a>
+    </div>
+    </div>
+    <div class="hidden cred" id="template">
+    </div>
+    </div>
+</body>
+</html>
